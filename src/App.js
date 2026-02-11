@@ -13,7 +13,7 @@ function App() {
   const fetchClients = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:8001/items');
+      const response = await fetch('https://back-crud-production.up.railway.app/items');
       const data = await response.json();
       setClients(data);
     } catch (error) {
@@ -40,7 +40,7 @@ function App() {
 
   const handleAddClient = async (nombre) => {
     try {
-      const response = await fetch('http://localhost:8001/items', {
+      const response = await fetch('https://back-crud-production.up.railway.app/items', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ function App() {
 
   const handleUpdateClient = async (id, nombre) => {
     try {
-      const response = await fetch(`http://localhost:8001/items/${id}`, {
+      const response = await fetch(`https://back-crud-production.up.railway.app/items/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ function App() {
 
     if (result.isConfirmed) {
       try {
-        const response = await fetch(`http://localhost:8001/items/${client.id}`, {
+        const response = await fetch(`https://back-crud-production.up.railway.app/items/${client.id}`, {
           method: 'DELETE',
         });
 
