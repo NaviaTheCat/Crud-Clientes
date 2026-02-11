@@ -14,10 +14,23 @@ function App() {
     try {
       setLoading(true);
       const response = await fetch('https://back-crud-production.up.railway.app/items');
+      if (response.status === 429) {
+        throw new Error('RATE_LIMIT_GET');
+      }
+      if (!response.ok) throw new Error('Error al obtener clientes');
       const data = await response.json();
       setClients(data);
     } catch (error) {
       console.error('Error al obtener clientes:', error);
+      if (error.message === 'RATE_LIMIT_GET') {
+        Swal.fire({
+          title: 'Demasiadas solicitudes',
+          text: 'Has alcanzado el limite de 60 solicitudes cada 15 minutos. Intenta mas tarde.',
+          icon: 'warning',
+          confirmButtonColor: '#0f172a',
+        });
+        return;
+      }
       Swal.fire({
         title: 'Error',
         text: 'No se pudieron cargar los clientes.',
@@ -48,11 +61,23 @@ function App() {
         body: JSON.stringify({ nombre }),
       });
 
+      if (response.status === 429) {
+        throw new Error('RATE_LIMIT_WRITE');
+      }
       if (!response.ok) throw new Error('Error al crear cliente');
       fetchClients();
       setIsAddOpen(false);
     } catch (error) {
       console.error('Error:', error);
+      if (error.message === 'RATE_LIMIT_WRITE') {
+        Swal.fire({
+          title: 'Demasiadas solicitudes',
+          text: 'Has alcanzado el limite de solicitudes. Intenta mas tarde.',
+          icon: 'warning',
+          confirmButtonColor: '#0f172a',
+        });
+        return;
+      }
       Swal.fire({
         title: 'Error',
         text: 'No se pudo agregar el cliente.',
@@ -72,11 +97,23 @@ function App() {
         body: JSON.stringify({ nombre }),
       });
 
+      if (response.status === 429) {
+        throw new Error('RATE_LIMIT_WRITE');
+      }
       if (!response.ok) throw new Error('Error al actualizar cliente');
       fetchClients();
       setIsUpdateOpen(false);
     } catch (error) {
       console.error('Error:', error);
+      if (error.message === 'RATE_LIMIT_WRITE') {
+        Swal.fire({
+          title: 'Demasiadas solicitudes',
+          text: 'Has alcanzado el limite de solicitudes cada. Intenta mas tarde.',
+          icon: 'warning',
+          confirmButtonColor: '#0f172a',
+        });
+        return;
+      }
       Swal.fire({
         title: 'Error',
         text: 'No se pudo actualizar el cliente.',
@@ -104,6 +141,9 @@ function App() {
           method: 'DELETE',
         });
 
+        if (response.status === 429) {
+          throw new Error('RATE_LIMIT_WRITE');
+        }
         if (!response.ok) throw new Error('Error al eliminar cliente');
         
         await Swal.fire({
@@ -117,6 +157,15 @@ function App() {
         fetchClients();
       } catch (error) {
         console.error('Error:', error);
+        if (error.message === 'RATE_LIMIT_WRITE') {
+          Swal.fire({
+            title: 'Demasiadas solicitudes',
+            text: 'Has alcanzado el limite de solicitudes. Intenta mas tarde.',
+            icon: 'warning',
+            confirmButtonColor: '#0f172a',
+          });
+          return;
+        }
         Swal.fire({
           title: 'Error',
           text: 'No se pudo eliminar el cliente.',
