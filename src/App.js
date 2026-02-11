@@ -3,6 +3,8 @@ import Swal from 'sweetalert2';
 import AddClientModal from './components/AddClienteModal';
 import UpdateClientModal from './components/UpdateClientModa';
 
+const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:8001';
+
 function App() {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
@@ -13,7 +15,7 @@ function App() {
   const fetchClients = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:8001/items');
+      const response = await fetch(`${API_BASE}/items`);
       const data = await response.json();
       setClients(data);
     } catch (error) {
@@ -40,7 +42,7 @@ function App() {
 
   const handleAddClient = async (nombre) => {
     try {
-      const response = await fetch('http://localhost:8001/items', {
+      const response = await fetch(`${API_BASE}/items`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -64,7 +66,7 @@ function App() {
 
   const handleUpdateClient = async (id, nombre) => {
     try {
-      const response = await fetch(`http://localhost:8001/items/${id}`, {
+      const response = await fetch(`${API_BASE}/items/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -100,7 +102,7 @@ function App() {
 
     if (result.isConfirmed) {
       try {
-        const response = await fetch(`http://localhost:8001/items/${client.id}`, {
+        const response = await fetch(`${API_BASE}/items/${client.id}`, {
           method: 'DELETE',
         });
 
