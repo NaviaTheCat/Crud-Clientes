@@ -5,7 +5,6 @@ import UpdateClientModal from './components/UpdateClientModa';
 
 const API_URL = 'https://back-crud-production.up.railway.app/items';
 const API_KEY = process.env.REACT_APP_API_KEY;
-console.log('hola', process.env.REACT_APP_API_KEY)
 const headers = {
   'Content-Type': 'application/json',
   'x-api-key': API_KEY,
@@ -57,7 +56,7 @@ function App() {
     fetchClients();
   }, []);
 
- /* useEffect(() => {
+  useEffect(() => {
     // Deshabilitar clic derecho
     const disableRightClick = (e) => {
       e.preventDefault();
@@ -83,7 +82,7 @@ function App() {
       document.removeEventListener('contextmenu', disableRightClick);
       document.removeEventListener('keydown', disableDevTools);
     };
-  }, []); */
+  }, []); 
 
   const openUpdateModal = (client) => {
     setSelectedClient(client);
