@@ -5,6 +5,7 @@ import UpdateClientModal from './components/UpdateClientModa';
 
 const API_URL = 'https://back-crud-production.up.railway.app/items';
 const API_KEY = process.env.REACT_APP_API_KEY;
+console.log(process.env.REACT_APP_API_KEY)
 const headers = {
   'Content-Type': 'application/json',
   'x-api-key': API_KEY,
