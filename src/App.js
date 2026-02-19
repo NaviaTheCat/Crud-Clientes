@@ -3,8 +3,9 @@ import Swal from 'sweetalert2';
 import AddClientModal from './components/AddClienteModal';
 import UpdateClientModal from './components/UpdateClientModa';
 
-const API_URL = 'https://back-crud-production.up.railway.app/items';
-const API_KEY = 'process.env.REACT_APP_API_KEY';
+//const API_URL = 'https://back-crud-production.up.railway.app/items';
+const API_URL = 'http://localhost:8001/items'
+const API_KEY = process.env.REACT_APP_API_KEY;
 const headers = {
   'Content-Type': 'application/json',
   'x-api-key': API_KEY,
@@ -56,33 +57,7 @@ function App() {
     fetchClients();
   }, []);
 
-  useEffect(() => {
-    // Deshabilitar clic derecho
-    const disableRightClick = (e) => {
-      e.preventDefault();
-      return false;
-    };
-
-    // Deshabilitar teclas de acceso a herramientas de desarrollo
-    const disableDevTools = (e) => {
-      if (
-        e.key === 'F12' ||
-        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
-        (e.ctrlKey && e.key === 'U')
-      ) {
-        e.preventDefault();
-        return false;
-      }
-    };
-
-    document.addEventListener('contextmenu', disableRightClick);
-    document.addEventListener('keydown', disableDevTools);
-
-    return () => {
-      document.removeEventListener('contextmenu', disableRightClick);
-      document.removeEventListener('keydown', disableDevTools);
-    };
-  }, []);
+ 
 
   const openUpdateModal = (client) => {
     setSelectedClient(client);
