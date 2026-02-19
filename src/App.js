@@ -56,7 +56,7 @@ function App() {
     fetchClients();
   }, []);
 
-  useEffect(() => {
+ /* useEffect(() => {
     // Deshabilitar clic derecho
     const disableRightClick = (e) => {
       e.preventDefault();
@@ -82,7 +82,7 @@ function App() {
       document.removeEventListener('contextmenu', disableRightClick);
       document.removeEventListener('keydown', disableDevTools);
     };
-  }, []);
+  }, []); */
 
   const openUpdateModal = (client) => {
     setSelectedClient(client);
